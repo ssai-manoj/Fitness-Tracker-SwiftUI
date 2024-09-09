@@ -9,12 +9,12 @@ import SwiftUI
 
 @main
 struct fitness_trackerApp: App {
-    let persistenceController = PersistenceController.shared
+    let workoutManager = WorkoutManager()
 
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environmentObject(workoutManager)
         }
     }
 }
