@@ -8,17 +8,34 @@
 import SwiftUI
 
 struct WorkoutRowView: View {
-    let workout: Workout
-
+    @ObservedObject var workout: Workout
+    
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 8) {
             Text(workout.name ?? "")
-                .font(.headline)
-            Text(workout.date ?? Date(), style: .date)
-                .font(.subheadline)
-            Text("Duration: \(Int(workout.duration)) minutes")
-                .font(.subheadline)
+                .font(.title2)
+                .bold()
+            
+            HStack {
+                Text(workout.date ?? Date(), style: .date)
+                Spacer()
+                Text("\(Int(workout.duration)) min")
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+            }
+            
+            HStack {
+                Text("\(Int(workout.calories)) cal")
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+                Spacer()
+                Text("\(workout.setsArray.count) sets")
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+            }
         }
+        .padding(.vertical, 12)
+        .padding(.horizontal, 12)
     }
 }
 

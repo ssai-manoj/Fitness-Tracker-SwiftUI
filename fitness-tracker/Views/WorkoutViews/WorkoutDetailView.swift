@@ -12,7 +12,8 @@ struct WorkoutDetailView: View {
     @ObservedObject var workout: Workout
     @State private var showingAddSet = false
     @State private var isEditing = false
-
+    @State private var isSetUpdated = 0
+    
     var body: some View {
         List {
             Section(header: Text("Workout Details")) {
@@ -49,6 +50,7 @@ struct WorkoutDetailView: View {
                 }
             }
         }
+        .id(isSetUpdated)
         .navigationTitle(workout.name ?? "")
         .navigationBarItems(trailing: Button(isEditing ? "Done" : "Edit") {
             if isEditing {
@@ -59,10 +61,20 @@ struct WorkoutDetailView: View {
         .sheet(isPresented: $showingAddSet) {
             AddWorkoutSetView(workout: workout)
         }
+        .onReceive(workoutManager.$lastUpdatedSetID) { _ in
+            print("Refreshing the view")
+            isSetUpdated += 1
+            workout.objectWillChange.send()
+        }
     }
 
     private func deleteSets(at offsets: IndexSet) {
         // Implement delete functionality for sets
+        for index in offsets{
+            let set = workout.setsArray[index]
+            workoutManager.deleteSet(set)
+        }
+        workoutManager.fetchWorkoutSets()
     }
 }
 
@@ -82,59 +94,9 @@ struct WorkoutSetRowView: View {
     }
 }
 
-struct SetDetailView: View {
-    @EnvironmentObject var workoutManager: WorkoutManager
-    @ObservedObject var set: WorkoutSet
-    @State private var isEditing = false
-    
-    var body: some View {
-        List {
-            Section(header: Text("Set Details")) {
-                if isEditing {
-                    TextField("Exercise", text: Binding($set.exercise)!)
-                    Stepper("Reps: \(set.reps)", value: Binding(
-                        get: { Int(set.reps) },
-                        set: { newValue in
-                            set.reps = Int16(newValue)
-                        }
-                    ), in: 0...100)
-                    HStack {
-                        Text("Weight")
-                        TextField("Weight", value: Binding($set.weight), formatter: NumberFormatter())
-                            .keyboardType(.decimalPad)
-                        Text("kg")
-                    }
-                    HStack {
-                        Text("Duration")
-                        TextField("Duration", value: Binding($set.duration), formatter: NumberFormatter())
-                            .keyboardType(.decimalPad)
-                        Text("seconds")
-                    }
-                } else {
-                    Text("Exercise: \(set.exercise ?? "")")
-                    Text("Reps: \(set.reps)")
-                    Text("Weight: \(set.weight, specifier: "%.1f") kg")
-                    Text("Duration: \(Int(set.duration)) seconds")
-                }
-            }
-        }
-        .navigationTitle(set.exercise ?? "")
-        .navigationBarItems(trailing: Button(isEditing ? "Done" : "Edit") {
-            if isEditing {
-                workoutManager.updateSet(set)
-            }
-            isEditing.toggle()
-        })
-    }
-}
-
 extension Workout {
     var setsArray: [WorkoutSet] {
         let setSet = sets as? Set<WorkoutSet> ?? []
-        return Array(setSet)
+        return Array(setSet).sorted { $0.id?.uuidString ?? "" < $1.id?.uuidString ?? "" }
     }
 }
-
-//#Preview {
-//    WorkoutDetailView()
-//}

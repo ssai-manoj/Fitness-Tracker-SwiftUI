@@ -11,7 +11,8 @@ class WorkoutManager: ObservableObject{
     let container: NSPersistentContainer
     @Published var savedWorkouts: [Workout] = []
     @Published var savedWorkoutSets: [WorkoutSet] = []
-    
+    @Published var lastUpdatedSetID: UUID?
+
     init(inMemory: Bool = false){
         container = NSPersistentContainer(name: "fitness_tracker")
         if inMemory {
@@ -24,14 +25,16 @@ class WorkoutManager: ObservableObject{
         }
     }
     
-    func saveContext(){
-        let context = container.viewContext;
-        if context.hasChanges{
-            do{
-                try context.save()
-            } catch {
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+    func saveContext() {
+            let context = container.viewContext
+            if context.hasChanges {
+                DispatchQueue.main.async {
+                    do {
+                        try context.save()
+                    } catch {
+                        let nsError = error as NSError
+                        fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+                }
             }
         }
     }
@@ -53,7 +56,7 @@ class WorkoutManager: ObservableObject{
     }
     
     func updateWorkout(_ workout: Workout) {
-            saveContext()
+        saveContext()
     }
     
     func addSetToWorkout(_ workout: Workout, exercise: String, reps: Int16, weight: Double, duration: Double) {
@@ -91,6 +94,12 @@ class WorkoutManager: ObservableObject{
     }
     
     func updateSet(_ set: WorkoutSet){
+        saveContext()
+        lastUpdatedSetID = set.id
+    }
+    
+    func deleteSet(_ set: WorkoutSet){
+        container.viewContext.delete(set)
         saveContext()
     }
     

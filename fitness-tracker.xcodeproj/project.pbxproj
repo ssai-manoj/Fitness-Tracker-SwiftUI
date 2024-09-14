@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11822F482C8F12210042C39F /* SetDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11822F472C8F12210042C39F /* SetDetailView.swift */; };
+		11822F4A2C8F32130042C39F /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11822F492C8F32130042C39F /* HealthKitManager.swift */; };
 		11B02FF92C8E1DBB004F43C6 /* fitness_trackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B02FF82C8E1DBB004F43C6 /* fitness_trackerApp.swift */; };
 		11B02FFB2C8E1DBB004F43C6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B02FFA2C8E1DBB004F43C6 /* ContentView.swift */; };
 		11B02FFD2C8E1DBC004F43C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11B02FFC2C8E1DBC004F43C6 /* Assets.xcassets */; };
@@ -27,6 +29,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		11822F472C8F12210042C39F /* SetDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetDetailView.swift; sourceTree = "<group>"; };
+		11822F492C8F32130042C39F /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
+		11822F4B2C8F353D0042C39F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		11822F4C2C8F35EB0042C39F /* fitness-tracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "fitness-tracker.entitlements"; sourceTree = "<group>"; };
 		11B02FF52C8E1DBB004F43C6 /* fitness-tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "fitness-tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		11B02FF82C8E1DBB004F43C6 /* fitness_trackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fitness_trackerApp.swift; sourceTree = "<group>"; };
 		11B02FFA2C8E1DBB004F43C6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -81,6 +87,8 @@
 		11B02FF72C8E1DBB004F43C6 /* fitness-tracker */ = {
 			isa = PBXGroup;
 			children = (
+				11822F4C2C8F35EB0042C39F /* fitness-tracker.entitlements */,
+				11822F4B2C8F353D0042C39F /* Info.plist */,
 				11B0301A2C8E234C004F43C6 /* Controller */,
 				11B0300B2C8E1F33004F43C6 /* Views */,
 				11B02FF82C8E1DBB004F43C6 /* fitness_trackerApp.swift */,
@@ -115,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				11B0301B2C8E235B004F43C6 /* WorkoutManager.swift */,
+				11822F492C8F32130042C39F /* HealthKitManager.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -126,6 +135,7 @@
 				11B030422C8E2D98004F43C6 /* AddWorkoutSetView.swift */,
 				11B0303E2C8E2B57004F43C6 /* WorkoutRowView.swift */,
 				11B030402C8E2CD5004F43C6 /* AddWorkoutView.swift */,
+				11822F472C8F12210042C39F /* SetDetailView.swift */,
 			);
 			path = WorkoutViews;
 			sourceTree = "<group>";
@@ -208,8 +218,10 @@
 				11B0300F2C8E1F4A004F43C6 /* WorkoutsView.swift in Sources */,
 				11B0303D2C8E2B4E004F43C6 /* WorkoutDetailView.swift in Sources */,
 				11B0300D2C8E1F42004F43C6 /* DashboardView.swift in Sources */,
+				11822F482C8F12210042C39F /* SetDetailView.swift in Sources */,
 				11B02FF92C8E1DBB004F43C6 /* fitness_trackerApp.swift in Sources */,
 				11B030112C8E1F53004F43C6 /* ProfileView.swift in Sources */,
+				11822F4A2C8F32130042C39F /* HealthKitManager.swift in Sources */,
 				11B030052C8E1DBC004F43C6 /* fitness_tracker.xcdatamodeld in Sources */,
 				11B030582C8E31F8004F43C6 /* Workout+CoreDataClass.swift in Sources */,
 				11B030592C8E31F8004F43C6 /* Workout+CoreDataProperties.swift in Sources */,
@@ -345,12 +357,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "fitness-tracker/fitness-tracker.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"fitness-tracker/Preview Content\"";
 				DEVELOPMENT_TEAM = PDQW8G4PSK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "fitness-tracker/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -374,12 +388,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "fitness-tracker/fitness-tracker.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"fitness-tracker/Preview Content\"";
 				DEVELOPMENT_TEAM = PDQW8G4PSK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "fitness-tracker/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
